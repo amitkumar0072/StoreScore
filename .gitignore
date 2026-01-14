@@ -1,0 +1,10 @@
+# ignore env files everywhere
+.env
+**/.env
+
+# node
+node_modules/
+
+# builds
+dist/
+build/
