@@ -10,11 +10,11 @@ const {
 // NORMAL USER SIGNUP
 exports.signup = async (req, res) => {
   try {
-    const { name, email, address, password } = req.body;
+    const { name, email, address, password ,role} = req.body;
 
     // Validations
     if (!validateName(name))
-      return res.status(400).json({ message: "Name must be 20-60 characters" });
+      return res.status(400).json({ message: "Name must be 2-60 characters" });
 
     if (!validateEmail(email))
       return res.status(400).json({ message: "Invalid email" });
@@ -37,7 +37,7 @@ exports.signup = async (req, res) => {
         email,
         address,
         password: hashedPassword,
-        role: "USER",
+        role,
       },
     });
 

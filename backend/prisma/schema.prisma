@@ -1,16 +1,10 @@
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
-enum Role {
-  ADMIN
-  USER
-  STORE_OWNER
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -20,20 +14,20 @@ model User {
   address   String
   password  String
   role      Role
-  stores    Store[]
-  ratings   Rating[]
   createdAt DateTime @default(now())
+  ratings   Rating[]
+  stores    Store[]
 }
 
 model Store {
   id        String   @id @default(uuid())
-  name      String
+  name      String   @unique 
   email     String
-  address   String
+  address   String 
   ownerId   String
-  owner     User     @relation(fields: [ownerId], references: [id])
-  ratings   Rating[]
   createdAt DateTime @default(now())
+  ratings   Rating[]
+  owner     User     @relation(fields: [ownerId], references: [id])
 }
 
 model Rating {
@@ -41,10 +35,16 @@ model Rating {
   rating    Int
   userId    String
   storeId   String
-  user      User    @relation(fields: [userId], references: [id])
-  store     Store   @relation(fields: [storeId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  store     Store    @relation(fields: [storeId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, storeId])
+}
+
+enum Role {
+  ADMIN
+  USER
+  STORE_OWNER
 }

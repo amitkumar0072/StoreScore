@@ -10,5 +10,5 @@ exports.validatePassword = (password) => {
 };
 
 exports.validateName = (name) => {
-  return name.length >= 20 && name.length <= 60;
+  return name.length >= 2 && name.length <= 60;
 };

@@ -16,7 +16,7 @@ exports.createUser = async (req, res) => {
     }
 
     if (!validateName(name))
-      return res.status(400).json({ message: "Name must be 20-60 chars" });
+      return res.status(400).json({ message: "Name must be 2-60 chars" });
 
     if (!validateEmail(email))
       return res.status(400).json({ message: "Invalid email" });
